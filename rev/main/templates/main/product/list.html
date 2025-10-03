@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main/base.html" %}
 {% load static %}
 
 {% block title %}Reverence{% endblock title %}
@@ -57,4 +57,50 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const checkboxes = document.querySelectorAll('.category-option input[type="checkbox"]');
+            const form = document.getElementById('filter-form');
+
+            checkboxes.forEach(checkboxes => {
+                checkbox.addEventListener('change', function(){
+                    form.submit();
+                });
+            });
+        });
+
+        let timeout;
+        function debounceApplyFilters() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                const form = document.getElementById('filter-form');
+                form.submit();
+            }, 1000);
+        }
+
+        function applyFilters() {
+            const form = document.getElementById('filter-form');
+            form.submit();
+            updateTitle();
+        }
+
+        function updateTitle() {
+            const checkboxes = document.querySelectorAll('input[name="category"]:checked');
+            const titleElement = document.getElementById('reverence-title');
+
+            if (checkboxes.length > 0) {
+                const selectedCategories = Array.form(checkboxes).map(checkbox => {
+                    const categoryText = checkbox.nextElementSibling.textContent.trim();
+                    return categoryText;
+                });
+                titleElement.textContent = `REVERENCE INTERLUDE - ${selectedCategories.join(', ')}`;
+            } else {
+                titleElement.textContent = 'REVERENCE INTERLUDE - ALL';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateTitle);
+
+    </script>
 {% endblock content %}
