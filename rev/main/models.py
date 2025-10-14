@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    def get_item_count(self):
+        return ClothingItem.objects.filter(category=self).count()
+    
     class Meta:
         ordering = ['name']
         indexes = [models.Index(fields=['name'])]
@@ -51,3 +54,11 @@ class ClothingItemSize(models.Model):
 
     class Meta:
         unique_together = ('clothing_item', 'size')
+
+
+class ItemImage(models.Model):
+    product = models.ForeignKey(ClothingItem, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product/%Y/%m/%d', blank=True)
+
+    def __str__(self):
+        return f'{self.product.name} - {self.image.name}'

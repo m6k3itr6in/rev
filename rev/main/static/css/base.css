@@ -48,7 +48,8 @@ p {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 40px 40px;
+
 }
 
 .header {
@@ -150,6 +151,10 @@ p {
 .card img {
     width: 240px;
     height: 350px;
+}
+
+.card-info {
+    padding-top: 15px;
 }
 
 .rev-head {
